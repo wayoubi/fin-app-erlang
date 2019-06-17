@@ -4,9 +4,9 @@
 -export([run/5]).
 
 run(stop, ServerPId, Name, RequestedLoan, CurrentCollected)->
-  ServerPId ! {messageRO, Name, CurrentCollected},
+  ServerPId ! {messageRO, Name, RequestedLoan},
   ServerPId ! {unregisterCustomer, Name},
-  RequestedLoan,
+  CurrentCollected,
   done;
 run(new, ServerPId, Name, RequestedLoan, CurrentCollected)->
   ServerPId ! {registerCustomer, Name, self()},
