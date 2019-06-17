@@ -1,0 +1,4 @@
+{wasim, 50}.
+{nour, 50}.
+{kholood, 50}.
+{ibrahim, 50}.
