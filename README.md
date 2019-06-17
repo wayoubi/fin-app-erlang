@@ -5,8 +5,17 @@ Your objective is to model a simple banking environment. Specifically, you will 
 So now for the details. To begin, you will need a handful of customers and banks. These will be supplied in a pair of very simple text files – customers.txt and banks.txt. While Erlang provides many file primitives for processing disk files, the process is not quite as simple as Clojure’s slurp() function. So the two files will contain records that are already pre-formatted. In other words, they are ready to be read directly into standard Erlang data structures.
 
 An example customers.txt file would be:
+{wasim, 50}.
+{nour, 50}.
+{kholood, 50}.
+{ibrahim, 50}. 
  
 An example banks.txt file would be:
+
+{bmo, 500}.
+{nb, 500}.
+{rbc, 500}.
+{scotia, 500}.
  
 In other words, each file simply contains a set of erlang tuples. You will see that each label is associated with a number. For customers, this is the total funds that they are hoping to obtain. For banks, the number represents their total financial resources that can be used for loans.
 
