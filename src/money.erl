@@ -2,9 +2,9 @@
 -author("Wasim Alayoubi").
 
 %% API
--export([main/0, server/3]).
+-export([start/0, server/3]).
 
-main()->
+start()->
   CustomersTupleList = readCustomersFromFile(),
   BanksTupleList = readBanksFromFile(),
   io:fwrite("** Customers and loan objectives **~n"),
