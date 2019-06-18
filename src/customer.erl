@@ -3,6 +3,11 @@
 %% API
 -export([run/5]).
 
+run(terminate, ServerPId, Name, RequestedLoan, CurrentCollected)->
+  ServerPId ! {messageRO, Name, CurrentCollected},
+  ServerPId ! {unregisterCustomer, Name},
+  RequestedLoan,
+  done;
 run(stop, ServerPId, Name, RequestedLoan, CurrentCollected)->
   ServerPId ! {messageRO, Name, RequestedLoan},
   ServerPId ! {unregisterCustomer, Name},
@@ -30,5 +35,5 @@ run(continue, ServerPId, Name, RequestedLoan, CurrentCollected) ->
       end;
     {noFunds}->
       run(continue, ServerPId, Name, RequestedLoan, CurrentCollected);
-    {teminate} -> run(stop, ServerPId, Name, RequestedLoan, CurrentCollected)
+    {terminate} -> run(terminate, ServerPId, Name, RequestedLoan, CurrentCollected)
   end.

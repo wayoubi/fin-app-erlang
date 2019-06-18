@@ -101,10 +101,16 @@ server(continue, BanksPIdMap, CustomersPIdMap) ->
     {unregisterCustomer, CustomerName} ->
       server(continue, BanksPIdMap, maps:remove(CustomerName, CustomersPIdMap));
     {askForMoney, CustomerName, RequestedAmount} ->
-      RandomBankName = lists:nth(rand:uniform(map_size(BanksPIdMap)), maps:keys(BanksPIdMap)),
-      RandomBankPId = maps:get(RandomBankName, BanksPIdMap),
-      io:fwrite("~w requests a loan of ~w dollar(s) from ~w~n", [CustomerName, RequestedAmount, RandomBankName]),
-      RandomBankPId ! {requestMoney, CustomerName, RequestedAmount},
+      if
+        map_size(BanksPIdMap) /= 0 ->
+          RandomBankName = lists:nth(rand:uniform(map_size(BanksPIdMap)), maps:keys(BanksPIdMap)),
+          RandomBankPId = maps:get(RandomBankName, BanksPIdMap),
+          io:fwrite("~w requests a loan of ~w dollar(s) from ~w~n", [CustomerName, RequestedAmount, RandomBankName]),
+          RandomBankPId ! {requestMoney, CustomerName, RequestedAmount};
+        true ->
+          CustomerPId = maps:get(CustomerName, CustomersPIdMap),
+          CustomerPId ! {terminate}
+      end,
       server(continue, BanksPIdMap, CustomersPIdMap);
     {moneyGranted, BankName, CustomerName, GrantedAmount} ->
       io:fwrite("~w approves a loan of ~w dollars from ~w~n", [BankName, GrantedAmount, CustomerName]),
