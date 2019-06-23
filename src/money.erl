@@ -16,7 +16,9 @@ start()->
   MoneyServerPId = spawn(money, server, [start, BanksPidMap, CustomersPidMap]),
   lists:map(fun(BankTuple) -> createBankProcess(BankTuple, MoneyServerPId) end, BanksTupleList),
   lists:map(fun(CustomerTuple) -> createCustomerProcess(CustomerTuple, MoneyServerPId) end, CustomersTupleList),
-  done.
+  Starting = "Starting ....",
+  Starting.
+
 
 readCustomersFromFile()->
   {ok, CustomersTupleList} = file:consult("Customers.txt"),
